@@ -5,9 +5,11 @@ public class GameLoop {
 	
 	public static boolean rodando = true;
 	
-	int FPS_TOTAL = 30;
+	int FRAMES_PER_SECOND = 60;
 	public static int FPS =0;
-	float contTime = 0;
+	float next_frame = System.currentTimeMillis();
+	float SKIP = 1000/FRAMES_PER_SECOND;
+	
 	
 	public GameLoop() {
 		Start();
@@ -22,9 +24,16 @@ public class GameLoop {
 			
 			long inicio = System.currentTimeMillis();
 			
-			Input();
-			Update(gameTime);
-			Draw();
+			
+			next_frame += SKIP;
+			
+			float time = next_frame - inicio;
+			if(time <= 0)
+			{
+				Input();
+				Update(gameTime);
+				Draw();
+			}
 				
 			
 			long fim = System.currentTimeMillis();
