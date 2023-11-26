@@ -18,10 +18,10 @@ public class Game1 extends GameLoop {
 	public void Start() {
 		
 		form = new Form();
-		scene = SCENE_MANAGER.LEVEL2;
-		menu = new Menu(form);
-		level1 = new Level1();
-		level2 = new Level2();
+		scene = SCENE_MANAGER.MENU;
+		menu = new Menu(form,this);
+		level1 = new Level1(this);
+		level2 = new Level2(this);
 		
 	}
 	

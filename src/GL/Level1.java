@@ -11,10 +11,12 @@ public class Level1 {
 	ObjectDynamics[] objectDynamics = new ObjectDynamics[100];
 	ObjectStatic[] objectStatic = new ObjectStatic[5];
 	Player player;
+	Game1 game1;
 	
 	
-	
-	public Level1() {
+	public Level1(Game1 game1) {
+		
+		this.game1 = game1;
 		
 		for(int i = 0; i< objectStatic.length; i++)
 		{
@@ -48,7 +50,12 @@ public class Level1 {
 		player.CollisionObjStatic();
 		
 		
-		
+		if(Form.instance.keyboard.Return_Esc())
+		{
+			Form.instance.ClearGrapphics(Form.instance.window.getGraphics(), new Color(100,100,100));
+			game1.scene = SCENE_MANAGER.MENU;
+			
+		}
 		
 		
 		

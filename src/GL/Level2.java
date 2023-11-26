@@ -10,12 +10,17 @@ public class Level2 {
 	ObjectDynamics[] objectDynamics = new ObjectDynamics[100];
 	ObjectStatic[] objectStatic = new ObjectStatic[4];
 	Player player;
+	Game1 game1;
 	
 	QuadTree quadTree;
 	static Rect rectAux;
 	boolean useQuadTree = true;
 	
-	public Level2() {
+	
+	
+	public Level2(Game1 game1) {
+		
+		this.game1 = game1;
 		
 		for(int i = 0; i< objectStatic.length; i++)
 		{
@@ -67,7 +72,11 @@ public class Level2 {
 		quadTree.ClearSubdivide(quadTree);
 		
 		
-		
+		if(Form.instance.keyboard.Return_Esc())
+		{
+			Form.instance.ClearGrapphics(Form.instance.window.getGraphics(), new Color(100,100,100));
+			game1.scene = SCENE_MANAGER.MENU;
+		}
 		
 		
 		

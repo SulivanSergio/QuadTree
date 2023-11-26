@@ -38,14 +38,12 @@ public class Form{
 	{
 		
 		
-		Graphics g = window.getGraphics();
+		
 		if(timerClear > timerClearMax)
 		{
 			timerClear = 0;
 			
-			g.clearRect((int)windowSize.x,(int)windowSize.y,(int)windowSize.width,(int)windowSize.height);
-			g.setColor(Color.GRAY);
-			g.fillRect((int)windowSize.x,(int)windowSize.y,(int)windowSize.width,(int)windowSize.height);
+			ClearGrapphics(window.getGraphics(),Color.GRAY);
 			
 		}
 		
@@ -59,6 +57,7 @@ public class Form{
 		window.getContentPane().setBackground(new Color(100,100,100));
 		window.setDefaultCloseOperation(window.EXIT_ON_CLOSE);
 		window.setLocationRelativeTo(null);
+		window.setLayout(null);
 		window.addKeyListener(keyboard);
 		window.setVisible(true);
 	}
@@ -66,19 +65,37 @@ public class Form{
 	
 	
 	
-	public JLabel CreateJLabel(JLabel label,Font font)
+	public JLabel CreateJLabel(JLabel label,Font font, int x,int y, int width,int height)
 	{
 		
 		label = new JLabel("Ola Mundo");
 		//label.setFont(new Font("Calibri",Font.BOLD,20));
+		label.setBounds(x,y,width,height);
 		label.setFont(font);
-		label.setAlignmentY(-200.0f);
-		label.setAlignmentX(200.0f);
+		label.setVerticalAlignment(label.CENTER);
+		label.setHorizontalAlignment(label.CENTER);
+		label.setVerticalTextPosition(label.CENTER);
+		label.setHorizontalTextPosition(label.CENTER);
 		label.setVisible(true);
 		window.add(label);
 		return label;
 	}
 	
+	public JButton CreateJButton(JButton button,String text,Font font,int x,int y, int width,int height)
+	{
+		
+		button = new JButton(text);
+		button.setBounds(x,y,width,height);
+		button.setFont(font);
+		button.setVisible(true);
+		window.add(button);
+		return button;
+	}
 	
+	public void ClearGrapphics(Graphics g,Color color) {
+		g.clearRect((int)windowSize.x,(int)windowSize.y,(int)windowSize.width,(int)windowSize.height);
+		g.setColor(color);
+		g.fillRect((int)windowSize.x,(int)windowSize.y,(int)windowSize.width,(int)windowSize.height);
+	}
 	
 }

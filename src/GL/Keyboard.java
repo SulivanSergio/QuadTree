@@ -12,6 +12,11 @@ public class Keyboard implements KeyListener{
 	boolean S = false;
 	boolean D = false;
 	
+	boolean um = false;
+	boolean dois = false;
+	
+	boolean esc = false;
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
@@ -39,7 +44,19 @@ public class Keyboard implements KeyListener{
 			D = true;
 		}
 		
+		if(e.getKeyCode() == e.VK_1)
+		{
+			um = true;
+		}
+		if(e.getKeyCode() == e.VK_2)
+		{
+			dois = true;
+		}
 		
+		if(e.getKeyCode() == e.VK_ESCAPE)
+		{
+			esc = true;
+		}
 		
 	}
 
@@ -63,6 +80,20 @@ public class Keyboard implements KeyListener{
 			D = false;
 		}
 		
+		if(e.getKeyCode() == e.VK_1)
+		{
+			um = false;
+		}
+		if(e.getKeyCode() == e.VK_2)
+		{
+			dois = false;
+		}
+		
+		if(e.getKeyCode() == e.VK_ESCAPE)
+		{
+			esc = false;
+		}
+		
 	}
 	
 	
@@ -77,6 +108,17 @@ public class Keyboard implements KeyListener{
 	}
 	public boolean Return_D() {
 		return D;
+	}
+	
+	public boolean Return_Um() {
+		return um;
+	}
+	public boolean Return_Dois() {
+		return dois;
+	}
+	
+	public boolean Return_Esc() {
+		return esc;
 	}
 	
 	
