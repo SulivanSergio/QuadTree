@@ -8,7 +8,7 @@ public class Level1 {
 	
 
 	
-	ObjectDynamics[] objectDynamics = new ObjectDynamics[100];
+	ObjectDynamics[] objectDynamics = new ObjectDynamics[300];
 	ObjectStatic[] objectStatic = new ObjectStatic[5];
 	Player player;
 	Game1 game1;
@@ -36,6 +36,9 @@ public class Level1 {
 	}
 	public void Update(float gameTime)
 	{
+		long inicio = System.currentTimeMillis();
+		float speedUP = 0;
+		
 		
 		for(int i = 0; i< objectDynamics.length; i++)
 		{
@@ -49,6 +52,10 @@ public class Level1 {
 		player.Update(gameTime);
 		player.CollisionObjStatic();
 		
+		
+		long fim = System.currentTimeMillis();
+		speedUP = 1.0f/ (float)(fim - inicio);
+		System.out.println("SpeedUP: " + speedUP);
 		
 		if(Form.instance.keyboard.Return_Esc())
 		{

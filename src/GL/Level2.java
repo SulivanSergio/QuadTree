@@ -7,7 +7,7 @@ public class Level2 {
 	
 
 	
-	ObjectDynamics[] objectDynamics = new ObjectDynamics[100];
+	ObjectDynamics[] objectDynamics = new ObjectDynamics[300];
 	ObjectStatic[] objectStatic = new ObjectStatic[4];
 	Player player;
 	Game1 game1;
@@ -42,22 +42,18 @@ public class Level2 {
 	}
 	public void Update(float gameTime)
 	{
+		long inicio = System.currentTimeMillis();
+		float speedUP = 0;
 		
 		quadTree.Insert(player.rect);
-		
-		
 		for(int i = 0; i< objectStatic.length; i++)
 		{
 			quadTree.Insert(objectStatic[i].rect);
 		}
-		
-		
 		for(int i = 0; i< objectDynamics.length; i++)
 		{
 			quadTree.Insert(objectDynamics[i].rect);
 		}
-		
-		
 		for(int i = 0; i< objectDynamics.length; i++)
 		{
 			objectDynamics[i].Update(gameTime);
@@ -71,6 +67,11 @@ public class Level2 {
 		
 		quadTree.ClearSubdivide(quadTree);
 		
+
+		long fim = System.currentTimeMillis();
+		speedUP = 1.0f/ (float)(fim - inicio);
+		
+		System.out.println("SpeedUP: " + speedUP);
 		
 		if(Form.instance.keyboard.Return_Esc())
 		{
