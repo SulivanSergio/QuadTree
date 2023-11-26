@@ -35,7 +35,7 @@ public class Player {
 	{
 		
 		Move(gameTime);
-		CollisionObjStatic();
+		
 		
 	}
 	private void Move(float gameTime)
@@ -68,12 +68,13 @@ public class Player {
 		rect.x += direction.x * speed * gameTime ;
 		rect.y += direction.y *speed * gameTime ;
 	}
-	private void CollisionObjStatic() {
+	public void CollisionObjStatic() {
 		
 		for(int i = 0; i< objectStatic.length; i++)
 		{
 			if(rect.BoundingCollision(rect,objectStatic[i].rect))
 			{
+				
 				direction.x *= -1;
 				direction.y *= -1;
 				rect.x += 0.5f * direction.x ;

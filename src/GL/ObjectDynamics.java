@@ -47,8 +47,7 @@ public class ObjectDynamics {
 	{
 		
 		Move(gameTime);
-		CollisionObjStatic();
-		CollisionPlayer();
+		
 		
 		timerColor += gameTime;
 	}
@@ -70,7 +69,7 @@ public class ObjectDynamics {
 		
 		
 	}
-	private void CollisionObjStatic() {
+	public void CollisionObjStatic() {
 		
 		for(int i = 0; i< objectStatic.length; i++)
 		{
@@ -85,7 +84,7 @@ public class ObjectDynamics {
 		}
 		
 	}
-	private void CollisionPlayer() {
+	public void CollisionPlayer() {
 		
 		
 		if(rect.BoundingCollision(rect,player.rect))

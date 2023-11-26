@@ -1,5 +1,7 @@
 package GL;
 
+import java.awt.Point;
+
 public class Rect {
 	
 	public float x;
@@ -13,6 +15,7 @@ public class Rect {
 		this.y = y;
 		this.height = height;
 		this.width = width;
+		
 	}
 	
 	public boolean BoundingCollision(Rect rect1,Rect rect2) 

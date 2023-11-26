@@ -13,7 +13,7 @@ public class Form{
 	
 	
 	JFrame window;
-	JLabel label;
+	
 	Rect windowSize;
 	Keyboard keyboard;
 	float timerClear = 0;
@@ -24,7 +24,7 @@ public class Form{
 		instance = this;
 		windowSize = new Rect(50,65,500,500);
 		keyboard = new Keyboard();
-		CreateJLabel();
+		
 		CreateJFrame();
 		
 	}
@@ -42,12 +42,14 @@ public class Form{
 		if(timerClear > timerClearMax)
 		{
 			timerClear = 0;
+			
 			g.clearRect((int)windowSize.x,(int)windowSize.y,(int)windowSize.width,(int)windowSize.height);
 			g.setColor(Color.GRAY);
 			g.fillRect((int)windowSize.x,(int)windowSize.y,(int)windowSize.width,(int)windowSize.height);
+			
 		}
 		
-		label.setText("FPS: "+ String.valueOf(GameLoop.FPS));
+		
 	}
 	
 	private void CreateJFrame()
@@ -57,31 +59,24 @@ public class Form{
 		window.getContentPane().setBackground(new Color(100,100,100));
 		window.setDefaultCloseOperation(window.EXIT_ON_CLOSE);
 		window.setLocationRelativeTo(null);
-		
-		window.add(label);
-		
 		window.addKeyListener(keyboard);
-		
-		
 		window.setVisible(true);
 	}
 	
-	public void Paint(Rect rect)
-	{
-		Graphics g = window.getGraphics();
-		g.setColor(Color.black);
-		g.drawRect((int)rect.x,(int)rect.y,(int)rect.width,(int)rect.height);
-		
-		
-	}
 	
-	private void CreateJLabel()
+	
+	
+	public JLabel CreateJLabel(JLabel label,Font font)
 	{
 		
 		label = new JLabel("Ola Mundo");
-		label.setFont(new Font("Calibri",Font.BOLD,20));
-		label.setVerticalAlignment(SwingConstants.TOP);
+		//label.setFont(new Font("Calibri",Font.BOLD,20));
+		label.setFont(font);
+		label.setAlignmentY(-200.0f);
+		label.setAlignmentX(200.0f);
 		label.setVisible(true);
+		window.add(label);
+		return label;
 	}
 	
 	
