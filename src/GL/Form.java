@@ -19,10 +19,11 @@ public class Form{
 	float timerClear = 0;
 	float timerClearMax = 0.05f;
 	
+	
 	public Form()
 	{
 		instance = this;
-		windowSize = new Rect(50,65,500,500);
+		windowSize = new Rect(50,65,1000,800);
 		keyboard = new Keyboard();
 		
 		CreateJFrame();
@@ -36,8 +37,6 @@ public class Form{
 	
 	public void Draw()
 	{
-		
-		
 		
 		if(timerClear > timerClearMax)
 		{
@@ -97,5 +96,6 @@ public class Form{
 		g.setColor(color);
 		g.fillRect((int)windowSize.x,(int)windowSize.y,(int)windowSize.width,(int)windowSize.height);
 	}
+	
 	
 }

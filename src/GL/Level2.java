@@ -7,8 +7,8 @@ public class Level2 {
 	
 
 	
-	ObjectDynamics[] objectDynamics = new ObjectDynamics[300];
-	ObjectStatic[] objectStatic = new ObjectStatic[4];
+	ObjectDynamics[] objectDynamics = new ObjectDynamics[200];
+	ObjectStatic[] objectStatic = new ObjectStatic[100];
 	Player player;
 	Game1 game1;
 	
@@ -62,6 +62,7 @@ public class Level2 {
 		CODynamicsQuadTree();
 		COStaticQuadTree();
 		COPlayerQuadTree();
+		CollisionStaticAndPlayerQuadTree();
 		
 		player.Update(gameTime);
 		
@@ -196,6 +197,28 @@ public class Level2 {
 		}
 	
 	}
+	public void CollisionStaticAndPlayerQuadTree() {
+		
+		for(int i = 0; i< objectStatic.length; i++)
+		{
+			quadTree.Search(quadTree, player.rect);
+			
+			if(objectStatic[i].rect.BoundingCollision(objectStatic[i].rect, rectAux))
+			{
+				if(objectStatic[i].rect.BoundingCollision(objectStatic[i].rect, player.rect))
+				{
+					
+					player.direction.x *= -1;
+					player.direction.y *= -1;
+					player.rect.x += 0.5f * player.direction.x ;
+					player.rect.y += 0.5f * player.direction.y ;
+				}
+			}
+		}
+		
+	}
+
+	
 	public static void CollectionObjects(Rect rects) {
 		
 		

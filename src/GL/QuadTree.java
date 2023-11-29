@@ -111,16 +111,35 @@ public class QuadTree {
 		if(this.objects.size() < this.capacity)
 		{
 			
-			objects.add(rect);
+			this.objects.add(rect);
 			
 		}else {
 			if(!this.divided) {
 				this.Subdivide();
 			}
-			this.noroeste.Insert(rect);
-			this.nordeste.Insert(rect);
-			this.sudoeste.Insert(rect);
-			this.sudeste.Insert(rect);
+			this.objects.add(rect);
+			for(int i = 0; i< objects.size(); i++)
+			{
+				if(this.objects.get(i).BoundingCollision(this.objects.get(i), this.noroeste.dimension))
+				{
+					this.noroeste.Insert(this.objects.get(i));
+				}
+				if(this.objects.get(i).BoundingCollision(this.objects.get(i), this.nordeste.dimension))
+				{
+					this.nordeste.Insert(this.objects.get(i));
+				}
+				if(this.objects.get(i).BoundingCollision(this.objects.get(i), this.sudoeste.dimension))
+				{
+					this.sudoeste.Insert(this.objects.get(i));
+				}
+				if(this.objects.get(i).BoundingCollision(this.objects.get(i), this.sudeste.dimension))
+				{
+					this.sudeste.Insert(this.objects.get(i));
+				}
+				
+			}
+			this.objects.clear();
+			
 		}
 	}
 	

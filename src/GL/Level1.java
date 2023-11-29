@@ -8,10 +8,12 @@ public class Level1 {
 	
 
 	
-	ObjectDynamics[] objectDynamics = new ObjectDynamics[300];
-	ObjectStatic[] objectStatic = new ObjectStatic[5];
+	ObjectDynamics[] objectDynamics = new ObjectDynamics[200];
+	ObjectStatic[] objectStatic = new ObjectStatic[100];
 	Player player;
 	Game1 game1;
+	
+	
 	
 	
 	public Level1(Game1 game1) {

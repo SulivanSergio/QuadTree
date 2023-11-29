@@ -17,6 +17,7 @@ public class ObjectDynamics {
 	float timerColorMax = 0.1f;
 	Color color;
 	
+	
 	public ObjectDynamics(ObjectStatic[] objectStatic,Player player) {
 		random = new Random();
 		rect = new Rect(random.nextFloat(Form.instance.windowSize.x,Form.instance.windowSize.width - 10),
@@ -25,6 +26,8 @@ public class ObjectDynamics {
 		
 		this.objectStatic = objectStatic;
 		this.player = player;
+		
+		
 		
 	}
 	

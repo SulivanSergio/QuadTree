@@ -9,7 +9,7 @@ public class GameLoop {
 	public static int FPS =0;
 	float next_frame = System.currentTimeMillis();
 	float SKIP = 1000/FRAMES_PER_SECOND;
-	
+	boolean print = true;
 	
 	public GameLoop() {
 		Start();
@@ -33,6 +33,7 @@ public class GameLoop {
 				Input();
 				Update(gameTime);
 				Draw();
+				
 			}
 				
 			
