@@ -12,14 +12,15 @@ public class Level1 {
 	ObjectStatic[] objectStatic = new ObjectStatic[100];
 	Player player;
 	Game1 game1;
+	Z_Buffer[] zBuffer;
 	
 	
-	
-	
-	public Level1(Game1 game1) {
+	//construtor
+	public Level1(Game1 game1) {	
 		
 		this.game1 = game1;
 		
+		//criação das particulas e player
 		for(int i = 0; i< objectStatic.length; i++)
 		{
 			objectStatic[i] = new ObjectStatic();
@@ -32,16 +33,31 @@ public class Level1 {
 		}
 		
 		
+		//criação do buffer
+		zBuffer = new Z_Buffer[objectStatic.length + objectDynamics.length + 1];
+		for(int i = 0; i < objectStatic.length; i++) {
+			zBuffer[i] = new Z_Buffer(objectStatic[i].rect,0,objectStatic[i].color);
+		}
+		
+		for(int i = objectStatic.length; i < objectStatic.length + objectDynamics.length ; i++) {
+			zBuffer[i] = new Z_Buffer(objectDynamics[i-objectStatic.length].rect,1,objectDynamics[i-objectStatic.length].color);
+		}
+		
+		for(int i = objectStatic.length + objectDynamics.length; i < objectStatic.length + objectDynamics.length + 1 ; i++) {
+			zBuffer[i] = new Z_Buffer(player.rect,2,player.color);
+		}
+		
 		
 		
 		
 	}
+	//update da movimentação
 	public void Update(float gameTime)
 	{
 		long inicio = System.currentTimeMillis();
 		float speedUP = 0;
 		
-		
+		//atualização da colisão
 		for(int i = 0; i< objectDynamics.length; i++)
 		{
 			objectDynamics[i].Update(gameTime);
@@ -59,6 +75,8 @@ public class Level1 {
 		speedUP = 1.0f/ (float)(fim - inicio);
 		System.out.println("SpeedUP: " + speedUP);
 		
+		
+		//comando para retornar para o menu
 		if(Form.instance.keyboard.Return_Esc())
 		{
 			Form.instance.ClearGrapphics(Form.instance.window.getGraphics(), new Color(100,100,100));
@@ -69,7 +87,7 @@ public class Level1 {
 		
 		
 	}
-	
+	//função que "desenhava", pois agora tem o z-buffer
 	public void Draw()
 	{
 		
@@ -82,15 +100,15 @@ public class Level1 {
 		{
 			objectStatic[i].Draw(Form.instance.window.getGraphics());	
 		}
-		
-		
 		player.Draw(Form.instance.window.getGraphics());
 		
+		
+		DrawBuffer();
 		
 		
 		
 	}
-	
+	//colisao dos objetos dinamicos
 	private void CODinamics() 
 	{
 		for(int i = 0; i < objectDynamics.length; i++)
@@ -117,8 +135,30 @@ public class Level1 {
 			}
 		}
 	}
-	
-	
+	//desenhar do z-buffer
+	private void DrawBuffer() {
+		
+		Graphics g = Form.instance.window.getGraphics();
+		
+		for(int i = objectStatic.length; i < objectStatic.length + objectDynamics.length ; i++) {
+			zBuffer[i].color = objectDynamics[i-objectStatic.length].color;
+		}
+		
+		for(int i = 0; i < 3; i++) {
+			
+			for(int j = 0; j < objectStatic.length + objectDynamics.length + 1; j++)
+			{
+				
+				if(i == zBuffer[j].depth)
+				{
+					
+					g.setColor(zBuffer[j].color);
+					g.fillRect((int)zBuffer[j].rect.x,(int)zBuffer[j].rect.y,(int)zBuffer[j].rect.width,(int)zBuffer[j].rect.height);
+				}
+			}
+					
+		}
+	}
 	
 	
 	

@@ -4,6 +4,7 @@ package GL;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+//classe que cuida dos eventos do teclado
 public class Keyboard implements KeyListener{
 
 	

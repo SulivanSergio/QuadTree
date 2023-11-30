@@ -6,7 +6,7 @@ public class GameLoop {
 	public static boolean rodando = true;
 	
 	int FRAMES_PER_SECOND = 60;
-	public static int FPS =0;
+	//public static int FPS =0;
 	float next_frame = System.currentTimeMillis();
 	float SKIP = 1000/FRAMES_PER_SECOND;
 	boolean print = true;
@@ -16,7 +16,7 @@ public class GameLoop {
 		Loop();
 	}
 	
-		
+	//loop do gameLoop
 	public void Loop() {
 		
 		float gameTime = 0;
@@ -30,7 +30,6 @@ public class GameLoop {
 			float time = next_frame - inicio;
 			if(time <= 0)
 			{
-				Input();
 				Update(gameTime);
 				Draw();
 				
@@ -45,9 +44,6 @@ public class GameLoop {
 	
 	public void Start(){
 		
-		
-	}
-	public void Input() {
 		
 	}
 	

@@ -1,6 +1,7 @@
 package GL;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 public class Level2 {
 
@@ -11,13 +12,12 @@ public class Level2 {
 	ObjectStatic[] objectStatic = new ObjectStatic[100];
 	Player player;
 	Game1 game1;
-	
 	QuadTree quadTree;
 	static Rect rectAux;
-	boolean useQuadTree = true;
+	Z_Buffer[] zBuffer;
 	
 	
-	
+	//construtor
 	public Level2(Game1 game1) {
 		
 		this.game1 = game1;
@@ -33,18 +33,35 @@ public class Level2 {
 			objectDynamics[i] = new ObjectDynamics(objectStatic,player);
 		}
 		
-		if(useQuadTree)
-			quadTree = new QuadTree(new Rect(Form.instance.windowSize.x,Form.instance.windowSize.y,Form.instance.windowSize.width,Form.instance.windowSize.height));
+		//criação da quadTree
+		quadTree = new QuadTree(new Rect(Form.instance.windowSize.x,Form.instance.windowSize.y,Form.instance.windowSize.width,Form.instance.windowSize.height));
+		
+		//criação do buffer
+		zBuffer = new Z_Buffer[objectStatic.length + objectDynamics.length + 1];
+		
+		for(int i = 0; i < objectStatic.length; i++) {
+			zBuffer[i] = new Z_Buffer(objectStatic[i].rect,0,objectStatic[i].color);
+		}
+		
+		for(int i = objectStatic.length; i < objectStatic.length + objectDynamics.length ; i++) {
+			zBuffer[i] = new Z_Buffer(objectDynamics[i-objectStatic.length].rect,1,objectDynamics[i-objectStatic.length].color);
+		}
+		
+		for(int i = objectStatic.length + objectDynamics.length; i < objectStatic.length + objectDynamics.length + 1 ; i++) {
+			zBuffer[i] = new Z_Buffer(player.rect,2,player.color);
+		}
+		
 		
 		
 		
 		
 	}
+	
+	//update da movimentação, colisão e criação da quadTree
 	public void Update(float gameTime)
 	{
-		long inicio = System.currentTimeMillis();
-		float speedUP = 0;
 		
+		//criação da arvore
 		quadTree.Insert(player.rect);
 		for(int i = 0; i< objectStatic.length; i++)
 		{
@@ -59,6 +76,9 @@ public class Level2 {
 			objectDynamics[i].Update(gameTime);
 		}
 		
+		long inicio = System.currentTimeMillis();
+		float speedUP = 0;
+		
 		CODynamicsQuadTree();
 		COStaticQuadTree();
 		COPlayerQuadTree();
@@ -66,6 +86,10 @@ public class Level2 {
 		
 		player.Update(gameTime);
 		
+		//desenhar do buffer
+		DrawBuffer();
+		
+		//limpeza da quadtree
 		quadTree.ClearSubdivide(quadTree);
 		
 
@@ -84,6 +108,7 @@ public class Level2 {
 		
 	}
 	
+	//metodo que atualiza o desenho
 	public void Draw()
 	{
 		
@@ -100,17 +125,12 @@ public class Level2 {
 		
 		player.Draw(Form.instance.window.getGraphics());
 		
-		if(useQuadTree)
-		{
-			quadTree.Print(quadTree);
-		}
-		
 		
 	}
 	
 	
 	
-	
+	//colisão dos objetos dinamicos da quadTree
 	private void CODynamicsQuadTree() 
 	{
 		for(int i = 0; i < objectDynamics.length; i++)
@@ -145,7 +165,8 @@ public class Level2 {
 		}
 	
 	}
-	
+
+	//colisão dos objetos estaticos da quadTree
 	private void COStaticQuadTree() 
 	{
 		for(int i = 0; i < objectDynamics.length; i++)
@@ -175,6 +196,7 @@ public class Level2 {
 		}
 	
 	}
+	//colisão do player com os objetos dinamicos da quadTree
 	private void COPlayerQuadTree() 
 	{
 		for(int i = 0; i < objectDynamics.length; i++)
@@ -197,6 +219,7 @@ public class Level2 {
 		}
 	
 	}
+	//colisão do player com os objetos estaticos da quadTree
 	public void CollisionStaticAndPlayerQuadTree() {
 		
 		for(int i = 0; i< objectStatic.length; i++)
@@ -218,11 +241,44 @@ public class Level2 {
 		
 	}
 
-	
+	//retorna o quadrado que esta o objeto buscado na arvore
 	public static void CollectionObjects(Rect rects) {
-		
-		
+
 		rectAux = rects;
 		
 	}
+	
+	//desenha todos do buffer
+	private void DrawBuffer() {
+		
+		Graphics g = Form.instance.window.getGraphics();
+		
+		for(int i = objectStatic.length; i < objectStatic.length + objectDynamics.length ; i++) {
+			zBuffer[i].color = objectDynamics[i-objectStatic.length].color;
+		}
+		
+		for(int i = 0; i < 4; i++) {
+			
+			for(int j = 0; j < objectStatic.length + objectDynamics.length + 1; j++)
+			{
+				
+				if(i == zBuffer[j].depth)
+				{
+					
+					g.setColor(zBuffer[j].color);
+					g.fillRect((int)zBuffer[j].rect.x,(int)zBuffer[j].rect.y,(int)zBuffer[j].rect.width,(int)zBuffer[j].rect.height);
+				}
+				
+			}
+			if(i == 3)
+			{
+				quadTree.Print(quadTree,g);
+			}
+					
+		}
+		
+	}
+
+
+
 }

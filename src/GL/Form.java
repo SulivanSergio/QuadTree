@@ -11,15 +11,13 @@ public class Form{
 	
 	public static Form instance;
 	
-	
 	JFrame window;
-	
 	Rect windowSize;
 	Keyboard keyboard;
 	float timerClear = 0;
 	float timerClearMax = 0.05f;
 	
-	
+	//construtor
 	public Form()
 	{
 		instance = this;
@@ -49,6 +47,7 @@ public class Form{
 		
 	}
 	
+	//cria a janela
 	private void CreateJFrame()
 	{
 		window = new JFrame();
@@ -61,9 +60,7 @@ public class Form{
 		window.setVisible(true);
 	}
 	
-	
-	
-	
+	//cria label
 	public JLabel CreateJLabel(JLabel label,Font font, int x,int y, int width,int height)
 	{
 		
@@ -80,17 +77,7 @@ public class Form{
 		return label;
 	}
 	
-	public JButton CreateJButton(JButton button,String text,Font font,int x,int y, int width,int height)
-	{
-		
-		button = new JButton(text);
-		button.setBounds(x,y,width,height);
-		button.setFont(font);
-		button.setVisible(true);
-		window.add(button);
-		return button;
-	}
-	
+	//limpa o canvas da cena
 	public void ClearGrapphics(Graphics g,Color color) {
 		g.clearRect((int)windowSize.x,(int)windowSize.y,(int)windowSize.width,(int)windowSize.height);
 		g.setColor(color);

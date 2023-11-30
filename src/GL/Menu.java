@@ -24,6 +24,8 @@ public class Menu {
 			
 			
 	}
+	
+	//atualiza o sceneManager do game1
 	public void Update(float gameTime) {
 		
 		titulo.setText("Game QuadTree");
@@ -54,11 +56,5 @@ public class Menu {
 		
 		
 	}
-	public void Draw() {
-		
-		
-	}
-	
-	
 	
 }

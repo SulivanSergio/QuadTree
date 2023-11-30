@@ -14,7 +14,8 @@ public class Game1 extends GameLoop {
 	Level1 level1;
 	Level2 level2;
 	SCENE_MANAGER scene;
-		
+	
+	//cria as cenas
 	public void Start() {
 		
 		form = new Form();
@@ -25,18 +26,22 @@ public class Game1 extends GameLoop {
 		
 	}
 	
+	//atualiza o game1
 	public void Update(float gameTime) {
 		
 		form.Update(gameTime);
 		UpdateScene(gameTime);
 		
 	}
+	
+	//desenha a cena
 	public void Draw() {
 		
 		DrawScene();
 		
 	}
 	
+	//atualiza uma cena aberta
 	private void UpdateScene(float gameTime) {
 		
 		switch(scene) {
@@ -52,11 +57,13 @@ public class Game1 extends GameLoop {
 			break;
 		}
 	}
+	
+	//desenha a cena aberta
 	private void DrawScene() {
 		
 		switch(scene) {
 		case MENU:
-			menu.Draw();
+			
 			break;
 		case LEVEL1:
 			level1.Draw();

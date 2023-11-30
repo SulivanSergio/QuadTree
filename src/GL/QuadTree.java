@@ -31,7 +31,7 @@ public class QuadTree {
 		g.drawRect((int)dimension.x,(int)dimension.y,(int)dimension.width,(int)dimension.height);
 	}
 	
-	
+	//subidivide o no da arvore
 	public void Subdivide()
 	{
 		
@@ -41,58 +41,58 @@ public class QuadTree {
 			
 			Rect no = new Rect(dimension.x, dimension.y,dimension.width/2,dimension.height/2);
 			noroeste = new QuadTree(no);
-			noroeste.Draw(Form.instance.window.getGraphics());
+			//noroeste.Draw(Form.instance.window.getGraphics());
 			
 			Rect ne = new Rect(dimension.x + dimension.width/2, dimension.y,dimension.width/2,dimension.height/2);
 			nordeste = new QuadTree(ne);
-			nordeste.Draw(Form.instance.window.getGraphics());
+			//nordeste.Draw(Form.instance.window.getGraphics());
 			
 			Rect so = new Rect(dimension.x, dimension.y + dimension.height/2,dimension.width/2,dimension.height/2);
 			sudoeste = new QuadTree(so);
-			sudoeste.Draw(Form.instance.window.getGraphics());
+			//sudoeste.Draw(Form.instance.window.getGraphics());
 			
 			Rect se = new Rect(dimension.x + dimension.width/2, dimension.y + dimension.height/2,dimension.width/2,dimension.height/2);
 			sudeste = new QuadTree(se);
-			sudeste.Draw(Form.instance.window.getGraphics());
+			//sudeste.Draw(Form.instance.window.getGraphics());
 			
 			this.divided = true;
 		}
 		
 		
 	}
-	
-	public void Print(QuadTree quad) 
+	//desenha a arvore toda
+	public void Print(QuadTree quad, Graphics g) 
 	{
 		if(quad != null) {
 			if(quad.noroeste != null)
 			{
 				//System.out.println("Noroeste");
-				quad.noroeste.Draw(Form.instance.window.getGraphics());
-				quad.noroeste.Print(quad.noroeste);
+				quad.noroeste.Draw(g);
+				quad.noroeste.Print(quad.noroeste,g);
 			}
 			if(quad.nordeste != null)
 			{
 				//System.out.println("Nordeste");
-				quad.nordeste.Draw(Form.instance.window.getGraphics());
-				quad.nordeste.Print(quad.nordeste);
+				quad.nordeste.Draw(g);
+				quad.nordeste.Print(quad.nordeste,g);
 			}
 			if(quad.sudoeste != null)
 			{
 				//System.out.println("Sudoeste");
-				quad.sudoeste.Draw(Form.instance.window.getGraphics());
-				quad.sudoeste.Print(quad.sudoeste);
+				quad.sudoeste.Draw(g);
+				quad.sudoeste.Print(quad.sudoeste,g);
 			}
 			if(quad.sudeste != null)
 			{
 				//System.out.println("Sudeste");
-				quad.sudeste.Draw(Form.instance.window.getGraphics());
-				quad.sudeste.Print(quad.sudeste);
+				quad.sudeste.Draw(g);
+				quad.sudeste.Print(quad.sudeste,g);
 			}
 		}
 		
 		
 	}
-	
+	//insere elementos na arvore
 	public void Insert(Rect rect) 
 	{
 		if(!this.dimension.BoundingCollision(rect,dimension))
@@ -143,7 +143,7 @@ public class QuadTree {
 		}
 	}
 	
-	
+	//limpa a arvore
 	public void ClearSubdivide(QuadTree quad) {
 		
 		
@@ -185,7 +185,7 @@ public class QuadTree {
 		
 	}
 	
-	
+	//faz uma busca para retornar em qual retangulo o objeto esta
 	public void Search(QuadTree quad,Rect rect) 
 	{
 		

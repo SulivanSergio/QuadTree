@@ -15,7 +15,7 @@ public class ObjectDynamics {
 	Player player;
 	float timerColor = 0;
 	float timerColorMax = 0.1f;
-	Color color;
+	Color color = Color.blue;
 	
 	
 	public ObjectDynamics(ObjectStatic[] objectStatic,Player player) {
@@ -30,7 +30,7 @@ public class ObjectDynamics {
 		
 		
 	}
-	
+	//atualiza o desenho
 	public void Draw(Graphics g,Color colorAux)
 	{
 		if(colorAux == Color.red)
@@ -42,18 +42,18 @@ public class ObjectDynamics {
 		{
 			color = colorAux;
 		}
-		g.setColor(color);
-		g.fillRect((int)rect.x,(int)rect.y,(int)rect.width,(int)rect.height);
+		//g.setColor(color);
+		//g.fillRect((int)rect.x,(int)rect.y,(int)rect.width,(int)rect.height);
 	}
 	
+	//update
 	public void Update(float gameTime)
 	{
-		
 		Move(gameTime);
-		
-		
 		timerColor += gameTime;
 	}
+	
+	//atualiza a movimentação dos objetos
 	private void Move(float gameTime)
 	{
 		rect.x += direction.x * speed * gameTime ;
@@ -72,6 +72,8 @@ public class ObjectDynamics {
 		
 		
 	}
+	
+	//testa colisão com objetos estaticos
 	public void CollisionObjStatic() {
 		
 		for(int i = 0; i< objectStatic.length; i++)
@@ -87,6 +89,8 @@ public class ObjectDynamics {
 		}
 		
 	}
+	
+	//testa colisão com player
 	public void CollisionPlayer() {
 		
 		

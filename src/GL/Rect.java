@@ -1,7 +1,6 @@
 package GL;
 
-import java.awt.Point;
-
+//classe para criar os retangulos
 public class Rect {
 	
 	public float x;
@@ -9,6 +8,7 @@ public class Rect {
 	public float height;
 	public float width;
 	
+	//construtor
 	public Rect(float x ,float y,float width,float height)
 	{
 		this.x = x;
@@ -18,6 +18,7 @@ public class Rect {
 		
 	}
 	
+	//testa colisao entre dois retangulos
 	public boolean BoundingCollision(Rect rect1,Rect rect2) 
 	{
 		if(rect1.x + rect1.width >= rect2.x && rect1.x <= rect2.x + rect2.width &&
@@ -30,7 +31,7 @@ public class Rect {
 			return false;
 		}
 	}
-	
+	//testa colisão com a borda no eixo X
 	public boolean BorderCollisionX(Rect rect1) 
 	{
 		if(rect1.x <= Form.instance.windowSize.x || rect1.x >= Form.instance.windowSize.width + Form.instance.windowSize.x - rect1.width) 
@@ -41,6 +42,8 @@ public class Rect {
 			return false;
 		}
 	}
+	
+	//testa colisão com a borda no eixo Y
 	public boolean BorderCollisionY(Rect rect1) 
 	{
 		if(rect1.y <= Form.instance.windowSize.y || rect1.y >= Form.instance.windowSize.height + Form.instance.windowSize.y - rect1.height) 
@@ -52,6 +55,7 @@ public class Rect {
 		}
 	}
 	
+	//testa colisão com a borda no eixo X negativo para o player
 	public boolean BorderPassNegativeX(Rect rect1) 
 	{
 		if(rect1.x >= Form.instance.windowSize.x) 
@@ -62,6 +66,7 @@ public class Rect {
 			return false;
 		}
 	}
+	//testa colisão com a borda no eixo X positivo para o player
 	public boolean BorderPassPositiveX(Rect rect1) 
 	{
 		if( rect1.x <= Form.instance.windowSize.width + Form.instance.windowSize.x - rect1.width) 
@@ -72,6 +77,8 @@ public class Rect {
 			return false;
 		}
 	}
+	
+	//testa colisão com a borda no eixo X negativo para o player
 	public boolean BorderPassNegativeY(Rect rect1) 
 	{
 		if(rect1.y >= Form.instance.windowSize.y) 
@@ -82,6 +89,8 @@ public class Rect {
 			return false;
 		}
 	}
+	
+	//testa colisão com a borda no eixo X positivo para o player
 	public boolean BorderPassPositiveY(Rect rect1) 
 	{
 		if(rect1.y <= Form.instance.windowSize.height + Form.instance.windowSize.y - rect1.height) 

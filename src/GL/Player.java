@@ -12,7 +12,7 @@ public class Player {
 	Point direction = new Point(0,0);
 	float speed = 70;
 	ObjectStatic[] objectStatic;
-	
+	Color color = Color.pink;
 	
 	
 	public Player(ObjectStatic[] objectStatic) {
@@ -27,17 +27,16 @@ public class Player {
 	
 	public void Draw(Graphics g)
 	{
-		g.setColor(Color.pink);
-		g.fillRect((int)rect.x,(int)rect.y,(int)rect.width,(int)rect.height);
+		//g.setColor(Color.pink);
+		//g.fillRect((int)rect.x,(int)rect.y,(int)rect.width,(int)rect.height);
 	}
 	
 	public void Update(float gameTime)
 	{
-		
 		Move(gameTime);
-		
-		
 	}
+	
+	//move as particulas dinamicas
 	private void Move(float gameTime)
 	{
 		direction.x = 0;
@@ -68,6 +67,8 @@ public class Player {
 		rect.x += direction.x * speed * gameTime ;
 		rect.y += direction.y *speed * gameTime ;
 	}
+	
+	//testa colisao com os objetos estaticos
 	public void CollisionObjStatic() {
 		
 		for(int i = 0; i< objectStatic.length; i++)
